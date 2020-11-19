@@ -7,7 +7,7 @@ import styles from './SearchBar.module.scss';
 export default function SearchBar({
   handleSearch,
 }: {
-  handleSearch: () => void;
+  handleSearch: (e: any) => void;
 }) {
   return (
     <div className={styles.search}>
