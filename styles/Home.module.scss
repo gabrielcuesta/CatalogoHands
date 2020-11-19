@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url(/background.svg) center center fixed;
+  background-position: center;
+  background-color: #1f0a06;
+}
+
+.main {
+  padding: 0;
+  flex: 1;
+  display: flex;
+}
+
+.GamesContainer {
+  display: flex;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  padding-top: 4.5em;
+  padding-bottom: 1em;
+  margin: 0 auto;
+  align-self: start;
+  justify-content: center;
+}

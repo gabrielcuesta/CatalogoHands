@@ -1,0 +1,144 @@
+.Card {
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+}
+
+.CardContainer {
+  display: flex;
+  margin: 0em 0.8em 0em 0.8em;
+  width: 21.875em;
+  min-height: 13.5em;
+  max-height: 13.5em;
+  background-color: #fff;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s;
+  -webkit-box-shadow: 19px 16px 9px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 19px 16px 9px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 19px 16px 9px 0px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+
+.CardContainer:hover {
+  opacity: 0.8;
+}
+
+.CardName {
+  display: inline-block;
+  position: relative;
+  top: 20px;
+  left: 27px;
+  background-color: #e9a522;
+  z-index: 5;
+  border-radius: 3px;
+  padding: 0.07em 0.2em 0.07em 0.2em;
+  overflow: hidden;
+  max-width: 310px;
+  flex-direction: row;
+}
+
+.TitleText {
+  height: 10px;
+  position: relative;
+  margin: 0.08em 0.16em 0.08em 0.16em;
+  width: 100%;
+  height: 100%;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 19px;
+  font-family: Roboto;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.FooterContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #e9a522;
+  padding-top: 0.3em;
+  height: 2.2em;
+  width: 100%;
+}
+
+.MainImage {
+  width: 35%;
+  margin: 5px;
+}
+
+.MiddleContainer {
+  padding-top: 11%;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+.TextContainer {
+  padding: 0em 0.3em 0em 0.5em;
+  align-items: center;
+  display: block;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  scroll-padding: 0;
+  scroll-margin: 0;
+  -ms-overflow-style: none; /* IE 10+ */
+  max-height: 160px;
+  &::-webkit-scrollbar {
+    width: 0px;
+    scroll-padding: 0;
+    scroll-margin: 0;
+    background: transparent; /* make scrollbar transparent */
+  }
+  
+}
+
+.TextSubdesc {
+  font-family: Roboto;
+  text-align: start;
+  margin: auto;
+  font-size: 1.01em;
+  line-height: 1.1em;
+  padding-bottom: 5px;
+}
+
+.Card {
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+}
+
+.FooterIcon {
+  height: 1.3em;
+  fill: #1f0a06;
+}
+
+.Division {
+  border: 1px solid #ffc451;
+  height: 1.7em;
+  margin-bottom: 0.15em;
+}
+
+.TextDesc {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 0.9em;
+  font-family: Roboto;
+  margin-left: 5px;
+  color: #1f0a06;
+  overflow: auto;
+}
+
+.DescContainer {
+  align-items: center;
+  display: flex;
+}
+
+.ActivityIndicator {
+  position: absolute;
+  top: 40vh;
+  left: 47vw;
+}
