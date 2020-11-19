@@ -15,7 +15,7 @@ const GameCard = ({ jogo }: { jogo: Game }) => {
           <div className={styles.TextContainer}>
             <p className={styles.TextSubdesc}>{jogo.subdesc}</p>
           </div>
-          <img className={styles.MainImage} mode="contain" src={jogo.imgMain} />
+          <img className={styles.MainImage} src={jogo.imgMain} />
         </div>
 
         <div className={styles.FooterContainer}>
