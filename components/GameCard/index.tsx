@@ -1,56 +1,53 @@
 import React, { useState } from 'react';
+import { Game } from '../../types/game';
 import styles from './GameCard.module.scss';
 
-const GameCard = (props) => {
+const GameCard = ({ jogo }: { jogo: Game }) => {
   return (
     <div className={styles.Card}>
       <div className={styles.CardName}>
-        <p className={styles.TitleText}>{props.jogo.game}</p>
+        <p className={styles.TitleText}>{jogo.game}</p>
       </div>
 
       <div className={styles.CardContainer}>
         <div></div>
         <div className={styles.MiddleContainer}>
           <div className={styles.TextContainer}>
-            <p className={styles.TextSubdesc}>{props.jogo.subdesc}</p>
+            <p className={styles.TextSubdesc}>{jogo.subdesc}</p>
           </div>
-          <img
-            className={styles.MainImage}
-            mode="contain"
-            src={props.jogo.imgMain}
-          />
+          <img className={styles.MainImage} mode="contain" src={jogo.imgMain} />
         </div>
 
         <div className={styles.FooterContainer}>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/players.svg" />
             <p className={styles.TextDesc}>
-              {props.jogo.minPlayers == props.jogo.maxPlayers
-                ? props.jogo.maxPlayers
-                : props.jogo.minPlayers + ' a ' + props.jogo.maxPlayers}
+              {jogo.minPlayers == jogo.maxPlayers
+                ? jogo.maxPlayers
+                : jogo.minPlayers + ' a ' + jogo.maxPlayers}
             </p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/age.svg" />
-            <p className={styles.TextDesc}>+{props.jogo.minAge}</p>
+            <p className={styles.TextDesc}>+{jogo.minAge}</p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/time.svg" />
             <p className={styles.TextDesc}>
-              {props.jogo.minTime} - {props.jogo.maxTime} min
+              {jogo.minTime} - {jogo.maxTime} min
             </p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/difficulty.svg" />
             <p className={styles.TextDesc}>
-              {props.jogo.difficulty == 1
+              {jogo.difficulty == 1
                 ? 'Fácil'
-                : props.jogo.difficulty == 2
+                : jogo.difficulty == 2
                 ? 'Médio'
-                : props.jogo.difficulty == 3
+                : jogo.difficulty == 3
                 ? 'Difícil'
                 : ''}
             </p>
