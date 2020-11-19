@@ -4,7 +4,11 @@ import InputBase from '@material-ui/core/InputBase';
 
 import styles from './SearchBar.module.scss';
 
-export default function SearchBar(props) {
+export default function SearchBar({
+  handleSearch,
+}: {
+  handleSearch: () => void;
+}) {
   return (
     <div className={styles.search}>
       <div className={styles.searchIcon}>
@@ -17,7 +21,7 @@ export default function SearchBar(props) {
           input: styles.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
-        onChange={props.handleSearch}
+        onChange={handleSearch}
       />
     </div>
   );

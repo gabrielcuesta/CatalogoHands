@@ -8,7 +8,13 @@ import Header from '../components/Header';
 import GameCard from '../components/GameCard';
 import { Game } from '../types/game';
 
-export default function Home({ props }) {
+export default function Home({
+  props,
+}: {
+  props: {
+    games: Game[];
+  };
+}) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
