@@ -2,27 +2,32 @@
   position: relative;
   border-radius: 4px;
   background-color: #efefef;
-  // '&:hover': {
-  //   backgroundColor: fade(theme.palette.common.white, 0.25),
-  // },
-    // },
+  transition: 0.3s;
+  &:hover {
+    transition: 0.3s;
+    opacity: 0.8;
+  };
   margin-left: 0;
   margin-right: 20px;
   display: flex;
   align-items: center;
-  
 }
 
 .searchIcon {
   margin-left: 5px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-}
-
-.inputRoot { 
+  padding: 6px;
 }
 
 .inputInput {
   background-color: #0f0;
+}
+
+
+@media screen and (max-width: 385px) {
+  .search {
+    width: 180px;
+  }
 }

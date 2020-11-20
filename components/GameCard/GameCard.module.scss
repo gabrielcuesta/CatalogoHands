@@ -87,14 +87,13 @@
   scroll-padding: 0;
   scroll-margin: 0;
   -ms-overflow-style: none; /* IE 10+ */
-  max-height: 160px;
   &::-webkit-scrollbar {
     width: 0px;
     scroll-padding: 0;
     scroll-margin: 0;
     background: transparent; /* make scrollbar transparent */
   }
-  
+  max-height: 173px;
 }
 
 .TextSubdesc {

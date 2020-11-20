@@ -26,3 +26,15 @@
   align-self: start;
   justify-content: center;
 }
+
+.filterButtonContainer {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background-color: '#f0f';
+
+}
+
+.filterButton {
+  background-color: '#f0f';
+}

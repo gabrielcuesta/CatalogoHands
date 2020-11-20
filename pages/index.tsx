@@ -7,7 +7,10 @@ import { getGames } from '../lib/games';
 import Header from '../components/Header';
 import GameCard from '../components/GameCard';
 import { Game } from '../types/game';
-
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import Fab from '@material-ui/core/Fab';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { createMuiTheme } from '@material-ui/core/styles';
 export default function Home({
   props,
 }: {
@@ -17,12 +20,15 @@ export default function Home({
 }) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
   const [appear, setAppear] = useState(true);
 
   const handleSearch = useCallback((e) => {
     setSearch(e.target.value);
   }, []);
+
+  const openFilter = useCallback(() => {
+    console.log('a');
+  });
 
   return (
     <div className={styles.container}>
@@ -37,7 +43,7 @@ export default function Home({
 
       <main className={styles.main}>
         <Header handleSearch={handleSearch} />
-        <span className={styles.GamesContainer}>
+        <TransitionGroup className={styles.GamesContainer}>
           {props.games
             .filter((game: Game) =>
               search.length > 0
@@ -45,21 +51,27 @@ export default function Home({
                   game.subdesc.toUpperCase().includes(search.toUpperCase())
                 : game,
             )
-            .map((game: Game) => (
-              <GameCard jogo={game} />
+            .map((game: Game, index) => (
+              <CSSTransition
+                in={appear}
+                appear={true}
+                timeout={500}
+                key={index}>
+                <GameCard jogo={game} />
+              </CSSTransition>
             ))}
-        </span>
+        </TransitionGroup>
+        <div className={styles.filterButtonContainer}>
+          <Fab
+            size="medium"
+            color="primary"
+            onClick={openFilter}
+            // classes={{ colorInherit: 'inherit' }}
+            aria-label="filter">
+            <FilterListIcon />
+          </Fab>
+        </div>
       </main>
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://github.com/hugohvf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by Hugo Fusinato
-        </a>
-      </footer> */}
     </div>
   );
 }
