@@ -28,7 +28,7 @@ export default function Home({
 
   const openFilter = useCallback(() => {
     console.log('a');
-  });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -66,7 +66,6 @@ export default function Home({
             size="medium"
             color="primary"
             onClick={openFilter}
-            // classes={{ colorInherit: 'inherit' }}
             aria-label="filter">
             <FilterListIcon />
           </Fab>
