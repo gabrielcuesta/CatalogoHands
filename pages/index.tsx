@@ -77,5 +77,8 @@ export default function Home({
 
 Home.getInitialProps = async () => {
   const games = await getGames();
-  return { props: { games: games }, revalidate: 43200 };
+  return {
+    props: { games: games.filter((game) => game.subdesc.length > 0) },
+    revalidate: 43200,
+  };
 };

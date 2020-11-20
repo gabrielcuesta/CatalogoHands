@@ -30,7 +30,9 @@ const GameCard = ({ jogo }: { jogo: Game }) => {
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/age.svg" />
-            <p className={styles.TextDesc}>+{jogo.minAge}</p>
+            <p className={styles.TextDesc}>
+              +{jogo.minAge.toString().replace('+', '')}
+            </p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
