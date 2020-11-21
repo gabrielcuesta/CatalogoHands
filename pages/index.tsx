@@ -24,7 +24,7 @@ export default function Home({
   const [filterModalOn, setFilterModalOn] = useState(false);
   const [filter, setFilter] = useState<Filter>({});
   const [showSearchFab, setShowSearchFab] = useState(true);
-  const searchRef = useRef(null);
+  const searchRef = useRef<any>(null);
 
   const clearSearch = () => {
     setSearch('');
