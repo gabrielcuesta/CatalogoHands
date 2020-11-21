@@ -1,4 +1,4 @@
-import React, { memo, MutableRefObject, Ref } from 'react';
+import React, { memo, MutableRefObject } from 'react';
 import SearchBar from '../SearchBar';
 import styles from './Header.module.scss';
 

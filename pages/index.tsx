@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { getGames } from '../lib/games';
@@ -115,7 +115,7 @@ export default function Home({
           <Filters
             isVisible={filterModalOn}
             closeModalFilter={closeModalFilter}
-            setFilter={setFilter.bind(this)}
+            setFilter={setFilter}
             clearSearch={clearSearch}
           />
         </div>

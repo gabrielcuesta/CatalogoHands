@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import styles from './Filters.module.scss';
-import { Modal, Checkbox, Button } from '@material-ui/core';
+import { Modal, Checkbox } from '@material-ui/core';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { Filter } from '../../types/filter';
