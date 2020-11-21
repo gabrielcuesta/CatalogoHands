@@ -21,10 +21,12 @@
   padding: 6px;
 }
 
-.inputInput {
-  background-color: #0f0;
+.clearSearchIcon {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  cursor: pointer;
 }
-
 
 @media screen and (max-width: 385px) {
   .search {

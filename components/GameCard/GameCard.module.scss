@@ -21,7 +21,7 @@
 }
 
 
-.CardContainer:hover {
+.Card:hover {
   opacity: 0.8;
 }
 
@@ -31,7 +31,6 @@
   top: 20px;
   left: 27px;
   background-color: #e9a522;
-  z-index: 5;
   border-radius: 3px;
   padding: 0.07em 0.2em 0.07em 0.2em;
   overflow: hidden;

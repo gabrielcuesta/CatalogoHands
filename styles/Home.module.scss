@@ -31,10 +31,39 @@
   position: fixed;
   right: 16px;
   bottom: 16px;
-  background-color: '#f0f';
-
 }
 
-.filterButton {
-  background-color: '#f0f';
+.filterSearchContainer {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+}
+
+.jabaContainer {
+  height: 70px;
+  display: flex;
+  padding: 10px;
+  background-color: #29120A;
+  border: 2px solid white;
+  border-radius: 4px 4px 0px 0px;
+  border-bottom: 0;
+  cursor: pointer;
+}
+
+.jabaText {
+  color: #ccc;
+}
+
+.jabaTextName {
+  text-align: center;
+  color: white;
+  padding-top: 7px;
+  font-weight: bold;
+  letter-spacing: 0.095em;
+}
+
+.jabaImage {
+  margin-left: 15px;
+  width: 50px;
+  height: 50px;
 }
