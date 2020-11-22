@@ -74,17 +74,45 @@ export default function Home({
               search.length > 0
                 ? game.game.toUpperCase().includes(search.toUpperCase()) ||
                   game.subdesc.toUpperCase().includes(search.toUpperCase())
-                : filter?.players
+                : game,
+            )
+            .filter((game: Game) =>
+              filter?.players
                 ? filter.players <= game.maxPlayers &&
                   filter.players >= game.minPlayers
-                : filter?.time
+                : game,
+            )
+            .filter((game: Game) =>
+              filter?.time
                 ? filter.time <= game.maxTime && filter.time >= game.minTime
+                : game,
+            )
+            .filter((game: Game) =>
+              filter?.easy && filter?.medium && filter?.hard
+                ? game
+                : filter?.easy && filter?.medium
+                ? game.difficulty == 1 || game.difficulty == 2
+                : filter?.easy && filter?.hard
+                ? game.difficulty == 1 || game.difficulty == 3
+                : filter?.medium && filter?.hard
+                ? game.difficulty == 2 || game.difficulty == 3
                 : filter?.easy
                 ? game.difficulty === 1
                 : filter?.medium
                 ? game.difficulty === 2
                 : filter?.hard
                 ? game.difficulty === 3
+                : game,
+            )
+            .filter((game: Game) =>
+              filter?.classic && filter?.party && filter?.strategy
+                ? game
+                : filter?.classic && filter?.party
+                ? game.type == 1 || game.type == 2
+                : filter?.classic && filter?.strategy
+                ? game.type == 1 || game.type == 3
+                : filter?.party && filter?.strategy
+                ? game.type == 2 || game.type == 3
                 : filter?.classic
                 ? game.type === 1
                 : filter?.party
