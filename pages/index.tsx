@@ -158,9 +158,7 @@ export default function Home({
           <p className={styles.jabaTextName}>Hugo Fusinato</p>
         </div>
 
-        <img
-          className={styles.jabaImage}
-          src="https://media-exp1.licdn.com/dms/image/C4D03AQGILXP4OKOLFA/profile-displayphoto-shrink_200_200/0?e=1611187200&v=beta&t=VcU6pN8OJH3aAkYmZ1KwLhI4wHJvXTZm80hDygktm1s"></img>
+        <img className={styles.jabaImage} src="images/hugo.jpeg"></img>
       </a>
     </div>
   );
