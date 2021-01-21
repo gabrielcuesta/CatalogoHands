@@ -1,0 +1,23 @@
+{
+ "name": "HandsBar Games",
+ "short_name": "HandsBar",
+  "theme_color": "#1b0804",
+  "background_color": "#1f0a06",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icons/icon-42x42.png",
+      "sizes": "42x42",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": null
+}

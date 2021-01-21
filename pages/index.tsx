@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef } from 'react';
-import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { getGames } from '../lib/games';
 import Header from '../components/Header';
@@ -51,15 +50,6 @@ export default function Home({
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Hands Board Games</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        />
-      </Head>
-
       <main className={styles.main}>
         <Header
           handleSearch={handleSearch}
