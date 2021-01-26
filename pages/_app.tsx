@@ -1,9 +1,9 @@
-import '../styles/globals.scss';
-import '../styles/colors.scss';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
-import orange from '@material-ui/core/colors/orange';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import '../styles/globals.scss'
+import '../styles/colors.scss'
+import Head from 'next/head'
+import { AppProps } from 'next/app'
+import orange from '@material-ui/core/colors/orange'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   palette: {
@@ -12,7 +12,7 @@ const theme = createMuiTheme({
       main: '#000',
     },
   },
-});
+})
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -29,18 +29,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Hands Board Games</title>
 
         <link rel="manifest" href="/manifest.json" />
-        <link
-          href="icons/icon-42x42.png"
-          rel="icon"
-          type="image/png"
-          sizes="42x42"
-        />
-        <link
-          href="/icons/icon-192x192.png"
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-        />
+        <link href="icons/icon-42x42.png" rel="icon" type="image/png" sizes="42x42" />
+        <link href="/icons/icon-192x192.png" rel="icon" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <link rel="icon" href="/icon.png" />
         <link
@@ -52,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
     </ThemeProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

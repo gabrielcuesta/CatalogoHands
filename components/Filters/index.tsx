@@ -1,68 +1,63 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
-import styles from './Filters.module.scss';
-import { Modal, Checkbox } from '@material-ui/core';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import { Filter } from '../../types/filter';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import styles from './Filters.module.scss'
+import { Modal, Checkbox } from '@material-ui/core'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
+import { Filter } from '../../types/filter'
 
 interface Props {
-  isVisible: boolean;
-  closeModalFilter: () => void;
-  setFilter: Dispatch<SetStateAction<Filter>>;
-  clearSearch: () => void;
+  isVisible: boolean
+  closeModalFilter: () => void
+  setFilter: Dispatch<SetStateAction<Filter>>
+  clearSearch: () => void
 }
 
 const defaultValue = {
   players: 4,
   time: 60,
-};
+}
 
-const Filters: React.FC<Props> = ({
-  isVisible,
-  closeModalFilter,
-  setFilter,
-  clearSearch,
-}) => {
-  const [usePlayers, setUsePlayers] = useState(false);
-  const [players, setPlayers] = useState(defaultValue['players']);
-  const [time, setTime] = useState(defaultValue['time']);
-  const [useTime, setUseTime] = useState(false);
-  const [easy, setEasy] = useState(false);
-  const [medium, setMedium] = useState(false);
-  const [hard, setHard] = useState(false);
-  const [classic, setClassic] = useState(false);
-  const [party, setParty] = useState(false);
-  const [strategy, setStrategy] = useState(false);
+const Filters: React.FC<Props> = ({ isVisible, closeModalFilter, setFilter, clearSearch }) => {
+  const [usePlayers, setUsePlayers] = useState(false)
+  const [players, setPlayers] = useState(defaultValue['players'])
+  const [time, setTime] = useState(defaultValue['time'])
+  const [useTime, setUseTime] = useState(false)
+  const [easy, setEasy] = useState(false)
+  const [medium, setMedium] = useState(false)
+  const [hard, setHard] = useState(false)
+  const [classic, setClassic] = useState(false)
+  const [party, setParty] = useState(false)
+  const [strategy, setStrategy] = useState(false)
 
   const handlePlayerChange = useCallback((value: number) => {
-    setPlayers(value);
-  }, []);
+    setPlayers(value)
+  }, [])
 
   const handleTimeChange = useCallback((value: number) => {
-    setTime(value);
-  }, []);
+    setTime(value)
+  }, [])
 
   const handlePlayerCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsePlayers(event.target.checked);
-  };
+    setUsePlayers(event.target.checked)
+  }
 
   const handleTimeCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUseTime(event.target.checked);
-  };
+    setUseTime(event.target.checked)
+  }
 
   const cleanFilter = () => {
-    setUsePlayers(false);
-    setUseTime(false);
-    setEasy(false);
-    setMedium(false);
-    setHard(false);
-    setClassic(false);
-    setParty(false);
-    setStrategy(false);
-    setFilter({});
-    clearSearch();
-    closeModalFilter();
-  };
+    setUsePlayers(false)
+    setUseTime(false)
+    setEasy(false)
+    setMedium(false)
+    setHard(false)
+    setClassic(false)
+    setParty(false)
+    setStrategy(false)
+    setFilter({})
+    clearSearch()
+    closeModalFilter()
+  }
 
   const filterGames = () => {
     setFilter({
@@ -74,17 +69,12 @@ const Filters: React.FC<Props> = ({
       classic,
       party,
       strategy,
-    });
-    closeModalFilter();
-  };
+    })
+    closeModalFilter()
+  }
 
   return (
-    <Modal
-      open={isVisible}
-      onClose={closeModalFilter}
-      disablePortal
-      disableRestoreFocus
-      disableScrollLock>
+    <Modal open={isVisible} onClose={closeModalFilter} disablePortal disableRestoreFocus disableScrollLock>
       <div className={styles.Modal}>
         <div className={styles.ItemContainer}>
           <span className={styles.Title}>
@@ -158,27 +148,24 @@ const Filters: React.FC<Props> = ({
           </span>
           <span className={styles.RowButton}>
             <button
-              onClick={() => setEasy((value) => !value)}
+              onClick={() => setEasy(value => !value)}
               value="easy"
-              className={
-                easy ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={easy ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Fácil
             </button>
             <button
-              onClick={() => setMedium((value) => !value)}
+              onClick={() => setMedium(value => !value)}
               value="medium"
-              className={
-                medium ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={medium ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Médio
             </button>
             <button
-              onClick={() => setHard((value) => !value)}
+              onClick={() => setHard(value => !value)}
               value="hard"
-              className={
-                hard ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={hard ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Díficil
             </button>
           </span>
@@ -190,27 +177,24 @@ const Filters: React.FC<Props> = ({
           </span>
           <span className={styles.RowButton}>
             <button
-              onClick={() => setClassic((value) => !value)}
+              onClick={() => setClassic(value => !value)}
               value="classic"
-              className={
-                classic ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={classic ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Clássico
             </button>
             <button
-              onClick={() => setParty((value) => !value)}
+              onClick={() => setParty(value => !value)}
               value="party"
-              className={
-                party ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={party ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Party
             </button>
             <button
-              onClick={() => setStrategy((value) => !value)}
+              onClick={() => setStrategy(value => !value)}
               value="strategy"
-              className={
-                strategy ? styles.SelectedButton : styles.UnselectedButton
-              }>
+              className={strategy ? styles.SelectedButton : styles.UnselectedButton}
+            >
               Estratégia
             </button>
           </span>
@@ -225,7 +209,7 @@ const Filters: React.FC<Props> = ({
         </span>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

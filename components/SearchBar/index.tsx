@@ -1,14 +1,14 @@
-import React, { MutableRefObject, useState } from 'react';
-import SearchIcon from '@material-ui/icons/Search';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import InputBase from '@material-ui/core/InputBase';
+import React, { MutableRefObject, useState } from 'react'
+import SearchIcon from '@material-ui/icons/Search'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import InputBase from '@material-ui/core/InputBase'
 
-import styles from './SearchBar.module.scss';
+import styles from './SearchBar.module.scss'
 
 interface Props {
-  handleSearch(e: any): void;
-  search: string;
-  clearSearch: () => void;
+  handleSearch(e: any): void
+  search: string
+  clearSearch: () => void
 }
 
 const SearchBar = React.forwardRef<HTMLDivElement, Props>((props, ref) => (
@@ -33,6 +33,6 @@ const SearchBar = React.forwardRef<HTMLDivElement, Props>((props, ref) => (
       </button>
     )}
   </div>
-));
+))
 
-export default SearchBar;
+export default SearchBar

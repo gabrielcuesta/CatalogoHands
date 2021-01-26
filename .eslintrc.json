@@ -24,13 +24,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "react-hooks",
-    "prettier",
-    "import-helpers"
-  ],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier", "import-helpers"],
   "rules": {
     "jsx-a11y/accessible-emoji": "off",
     "prettier/prettier": "error",
@@ -52,17 +46,12 @@
     "import/extensions": 0,
     "@typescript-eslint/no-explicit-any": "error",
     "no-console": "error",
-    "func-style": ["error","expression"],
+    "func-style": ["error", "expression"],
     "import-helpers/order-imports": [
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": [
-          "/^react/",
-          "module",
-          "/^@/",
-          ["parent", "sibling", "index"]
-        ],
+        "groups": ["/^react/", "module", "/^@/", ["parent", "sibling", "index"]],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": true

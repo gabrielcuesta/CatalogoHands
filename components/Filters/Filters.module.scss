@@ -10,24 +10,22 @@
   border-radius: 5px;
   outline: 0;
   z-index: 10;
-  -webkit-box-shadow: -10px 10px 7px 0px rgba(0,0,0,0.12);
-  -moz-box-shadow: -10px 10px 7px 0px rgba(0,0,0,0.12);
-  box-shadow: -10px 10px 7px 0px rgba(0,0,0,0.12);
+  -webkit-box-shadow: -10px 10px 7px 0px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: -10px 10px 7px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: -10px 10px 7px 0px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
 
-  
   @media screen and (max-width: 385px) {
     height: 100vh;
     width: 100vw;
-    bottom: unset; 
-    right: unset; 
+    bottom: unset;
+    right: unset;
     margin: unset;
     border-radius: 0px;
   }
-
 }
 
 .Icon {
@@ -39,7 +37,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-
 }
 
 .TitleText {
@@ -49,7 +46,7 @@
   margin-left: 7px;
 }
 
-.ItemContainer{
+.ItemContainer {
   width: 275px;
 }
 
@@ -74,12 +71,12 @@
 }
 
 .SliderTrack {
-  background-color: #1B0804;
+  background-color: #1b0804;
 }
 
 .SliderHandle {
   border-width: 3px;
-  border-color: #1B0804;
+  border-color: #1b0804;
   background-color: #fff;
   height: 20px;
   width: 20px;
@@ -99,20 +96,20 @@
 
 .SelectedButton {
   @include Button;
-  background-color: #1F0A06;
+  background-color: #1f0a06;
   color: white;
   &:disabled {
-    color: #1F0A06;
+    color: #1f0a06;
     background-color: #fff;
-    border: 3px solid #1F0A06;
+    border: 3px solid #1f0a06;
   }
 }
 
 .UnselectedButton {
   @include Button;
-  color: #1F0A06;
+  color: #1f0a06;
   background-color: #fff;
-  border: 3px solid #1F0A06;
+  border: 3px solid #1f0a06;
 }
 
 .RowButton {
@@ -129,19 +126,18 @@
 
 .FilterButton {
   @include Button;
-  background-color: #1F0A06;
+  background-color: #1f0a06;
   color: white;
   height: 40px;
   width: 80px;
-  border: 3px solid #1F0A06;
-
+  border: 3px solid #1f0a06;
 }
 
 .CleanButton {
   @include Button;
-  color: #1F0A06;
+  color: #1f0a06;
   background-color: #fff;
-  border: 3px solid #1F0A06;
+  border: 3px solid #1f0a06;
   height: 40px;
   width: 80px;
 }

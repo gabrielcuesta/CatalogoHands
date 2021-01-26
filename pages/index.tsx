@@ -1,62 +1,57 @@
-import React, { useState, useCallback, useRef } from 'react';
-import styles from '../styles/Home.module.scss';
-import { getGames } from '../lib/games';
-import Header from '../components/Header';
-import GameCard from '../components/GameCard';
-import { Game } from '../types/game';
-import { Filter } from '../types/filter';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Fab from '@material-ui/core/Fab';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import SearchIcon from '@material-ui/icons/Search';
-import Filters from '../components/Filters';
+import React, { useState, useCallback, useRef } from 'react'
+import styles from '../styles/Home.module.scss'
+import { getGames } from '../lib/games'
+import Header from '../components/Header'
+import GameCard from '../components/GameCard'
+import { Game } from '../types/game'
+import { Filter } from '../types/filter'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import Fab from '@material-ui/core/Fab'
+import FilterListIcon from '@material-ui/icons/FilterList'
+import SearchIcon from '@material-ui/icons/Search'
+import Filters from '../components/Filters'
 
 export default function Home({
   props,
 }: {
   props: {
-    games: Game[];
-  };
+    games: Game[]
+  }
 }) {
-  const [search, setSearch] = useState('');
-  const [appear, setAppear] = useState(true);
-  const [filterModalOn, setFilterModalOn] = useState(false);
-  const [filter, setFilter] = useState<Filter>({});
-  const [showSearchFab, setShowSearchFab] = useState(true);
-  const searchRef = useRef<any>(null);
+  const [search, setSearch] = useState('')
+  const [appear, setAppear] = useState(true)
+  const [filterModalOn, setFilterModalOn] = useState(false)
+  const [filter, setFilter] = useState<Filter>({})
+  const [showSearchFab, setShowSearchFab] = useState(true)
+  const searchRef = useRef<any>(null)
 
   const clearSearch = () => {
-    setSearch('');
-  };
+    setSearch('')
+  }
 
-  const handleSearch = useCallback((e) => {
-    setSearch(e.target.value);
-  }, []);
+  const handleSearch = useCallback(e => {
+    setSearch(e.target.value)
+  }, [])
 
   const openFilter = useCallback(() => {
-    if (window.innerWidth <= 380) setShowSearchFab(false);
-    setFilterModalOn(true);
-  }, []);
+    if (window.innerWidth <= 380) setShowSearchFab(false)
+    setFilterModalOn(true)
+  }, [])
 
   const focusSearch = useCallback(() => {
-    window.scrollTo(0, 0);
-    searchRef?.current?.focus();
-  }, []);
+    window.scrollTo(0, 0)
+    searchRef?.current?.focus()
+  }, [])
 
   const closeModalFilter = () => {
-    setFilterModalOn(false);
-    if (window.innerWidth <= 380) setShowSearchFab(true);
-  };
+    setFilterModalOn(false)
+    if (window.innerWidth <= 380) setShowSearchFab(true)
+  }
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <Header
-          handleSearch={handleSearch}
-          ref={searchRef}
-          search={search}
-          clearSearch={clearSearch}
-        />
+        <Header handleSearch={handleSearch} ref={searchRef} search={search} clearSearch={clearSearch} />
 
         <TransitionGroup className={styles.GamesContainer}>
           {props.games
@@ -64,19 +59,12 @@ export default function Home({
               search.length > 0
                 ? game.game.toUpperCase().includes(search.toUpperCase()) ||
                   game.subdesc.toUpperCase().includes(search.toUpperCase())
-                : game,
+                : game
             )
             .filter((game: Game) =>
-              filter?.players
-                ? filter.players <= game.maxPlayers &&
-                  filter.players >= game.minPlayers
-                : game,
+              filter?.players ? filter.players <= game.maxPlayers && filter.players >= game.minPlayers : game
             )
-            .filter((game: Game) =>
-              filter?.time
-                ? filter.time <= game.maxTime && filter.time >= game.minTime
-                : game,
-            )
+            .filter((game: Game) => (filter?.time ? filter.time <= game.maxTime && filter.time >= game.minTime : game))
             .filter((game: Game) =>
               filter?.easy && filter?.medium && filter?.hard
                 ? game
@@ -92,7 +80,7 @@ export default function Home({
                 ? game.difficulty === 2
                 : filter?.hard
                 ? game.difficulty === 3
-                : game,
+                : game
             )
             .filter((game: Game) =>
               filter?.classic && filter?.party && filter?.strategy
@@ -109,25 +97,17 @@ export default function Home({
                 ? game.type === 2
                 : filter?.strategy
                 ? game.type === 3
-                : game,
+                : game
             )
             .map((game: Game, index) => (
-              <CSSTransition
-                in={appear}
-                appear={true}
-                timeout={500}
-                key={index}>
+              <CSSTransition in={appear} appear={true} timeout={500} key={index}>
                 <GameCard jogo={game} />
               </CSSTransition>
             ))}
         </TransitionGroup>
 
         <div className={styles.filterButtonContainer}>
-          <Fab
-            size="medium"
-            color="primary"
-            onClick={openFilter}
-            aria-label="filter-button">
+          <Fab size="medium" color="primary" onClick={openFilter} aria-label="filter-button">
             <FilterListIcon />
           </Fab>
           <Filters
@@ -139,20 +119,13 @@ export default function Home({
         </div>
         {showSearchFab && (
           <div className={styles.filterSearchContainer}>
-            <Fab
-              size="medium"
-              color="primary"
-              onClick={focusSearch}
-              aria-label="search-button">
+            <Fab size="medium" color="primary" onClick={focusSearch} aria-label="search-button">
               <SearchIcon />
             </Fab>
           </div>
         )}
       </main>
-      <a
-        className={styles.jabaContainer}
-        target="_blank"
-        href="https://www.linkedin.com/in/hugo-fusinato/">
+      <a className={styles.jabaContainer} target="_blank" href="https://www.linkedin.com/in/hugo-fusinato/">
         <div>
           <p className={styles.jabaText}>Desenvolvido por:</p>
           <p className={styles.jabaTextName}>Hugo Fusinato</p>
@@ -161,13 +134,13 @@ export default function Home({
         <img className={styles.jabaImage} src="images/hugo.jpeg"></img>
       </a>
     </div>
-  );
+  )
 }
 
 Home.getInitialProps = async () => {
-  const games = await getGames();
+  const games = await getGames()
   return {
-    props: { games: games.filter((game) => game.subdesc.length > 0) },
+    props: { games: games.filter(game => game.subdesc.length > 0) },
     revalidate: 43200,
-  };
-};
+  }
+}
