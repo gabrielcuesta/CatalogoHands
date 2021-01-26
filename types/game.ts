@@ -21,4 +21,5 @@ export type Game = {
   editor: string;
   yearRelease: string;
   linkDownload: string;
+  categoriaAluguel: number;
 };

@@ -1,14 +1,26 @@
-import React from 'react';
-import { Game } from '../../types/game';
-import styles from './GameCard.module.scss';
+import React from 'react'
+import { Game } from '../../types/game'
+import styles from './GameCard.module.scss'
 
 const GameCard = ({ jogo }: { jogo: Game }) => {
   return (
     <div className={styles.Card}>
-      <div className={styles.CardName}>
-        <p className={styles.TitleText}>{jogo.game}</p>
+      <div className={styles.headerContainer}>
+        <div className={styles.CardName}>
+          <p className={styles.TitleText}>{jogo.game}</p>
+        </div>
+        <div className={styles.cardRentType}>
+          {jogo.categoriaAluguel ? (
+            jogo.categoriaAluguel === 1 ? (
+              <img className={styles.rentTypeIcon} src={'images/cooper.svg'} />
+            ) : jogo.categoriaAluguel === 2 ? (
+              <img className={styles.rentTypeIcon} src={'images/silver.svg'} />
+            ) : jogo.categoriaAluguel === 3 ? (
+              <img className={styles.rentTypeIcon} src={'images/gold.svg'} />
+            ) : null
+          ) : null}
+        </div>
       </div>
-
       <div className={styles.CardContainer}>
         <div></div>
         <div className={styles.MiddleContainer}>
@@ -22,17 +34,13 @@ const GameCard = ({ jogo }: { jogo: Game }) => {
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/players.svg" />
             <p className={styles.TextDesc}>
-              {jogo.minPlayers == jogo.maxPlayers
-                ? jogo.maxPlayers
-                : jogo.minPlayers + ' a ' + jogo.maxPlayers}
+              {jogo.minPlayers == jogo.maxPlayers ? jogo.maxPlayers : jogo.minPlayers + ' a ' + jogo.maxPlayers}
             </p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/age.svg" />
-            <p className={styles.TextDesc}>
-              +{jogo.minAge.toString().replace('+', '')}
-            </p>
+            <p className={styles.TextDesc}>+{jogo.minAge.toString().replace('+', '')}</p>
           </div>
           <div className={styles.Division}></div>
           <div className={styles.DescContainer}>
@@ -45,19 +53,13 @@ const GameCard = ({ jogo }: { jogo: Game }) => {
           <div className={styles.DescContainer}>
             <img className={styles.FooterIcon} src="images/difficulty.svg" />
             <p className={styles.TextDesc}>
-              {jogo.difficulty == 1
-                ? 'Fácil'
-                : jogo.difficulty == 2
-                ? 'Médio'
-                : jogo.difficulty == 3
-                ? 'Difícil'
-                : ''}
+              {jogo.difficulty == 1 ? 'Fácil' : jogo.difficulty == 2 ? 'Médio' : jogo.difficulty == 3 ? 'Difícil' : ''}
             </p>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GameCard;
+export default GameCard
