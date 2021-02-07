@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Game } from '../../types/game'
 import styles from './GameCard.module.scss'
 
@@ -62,4 +62,4 @@ const GameCard = ({ jogo }: { jogo: Game }) => {
   )
 }
 
-export default GameCard
+export default memo(GameCard)

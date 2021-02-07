@@ -17,6 +17,7 @@
     "rc-slider": "^9.6.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-infinite-scroll-component": "^6.0.0",
     "react-transition-group": "^4.4.1",
     "sass": "^1.29.0",
     "styled-components": "^5.2.1"

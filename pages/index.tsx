@@ -1,16 +1,18 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react'
 import styles from '../styles/Home.module.scss'
 import { getGames } from '../lib/games'
 import Header from '../components/Header'
 import GameCard from '../components/GameCard'
 import { Game } from '../types/game'
 import { Filter } from '../types/filter'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Fab from '@material-ui/core/Fab'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchIcon from '@material-ui/icons/Search'
 import Filters from '../components/Filters'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
+const mobileItemsPerPage = 5
+const desktopItemsPerPage = 15
 export default function Home({
   props,
 }: {
@@ -19,10 +21,19 @@ export default function Home({
   }
 }) {
   const [search, setSearch] = useState('')
-  const [appear, setAppear] = useState(true)
   const [filterModalOn, setFilterModalOn] = useState(false)
   const [filter, setFilter] = useState<Filter>({})
   const [showSearchFab, setShowSearchFab] = useState(true)
+  const [page, setPage] = useState<number>(0)
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const [maxItemsPerPage, setMaxItemsPerPage] = useState<number>(15)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth > 767 ? setMaxItemsPerPage(desktopItemsPerPage) : setMaxItemsPerPage(mobileItemsPerPage)
+    }
+  }, [])
+
   const searchRef = useRef<any>(null)
 
   const clearSearch = () => {
@@ -48,63 +59,86 @@ export default function Home({
     if (window.innerWidth <= 380) setShowSearchFab(true)
   }
 
+  const filteredGames = useMemo(
+    () =>
+      props.games
+        .filter((game: Game) =>
+          search.length > 0
+            ? game.game.toUpperCase().includes(search.toUpperCase()) ||
+              game.subdesc.toUpperCase().includes(search.toUpperCase())
+            : game
+        )
+        .filter((game: Game) =>
+          filter?.players ? filter.players <= game.maxPlayers && filter.players >= game.minPlayers : game
+        )
+        .filter((game: Game) => (filter?.time ? filter.time <= game.maxTime && filter.time >= game.minTime : game))
+        .filter((game: Game) =>
+          filter?.easy && filter?.medium && filter?.hard
+            ? game
+            : filter?.easy && filter?.medium
+            ? game.difficulty == 1 || game.difficulty == 2
+            : filter?.easy && filter?.hard
+            ? game.difficulty == 1 || game.difficulty == 3
+            : filter?.medium && filter?.hard
+            ? game.difficulty == 2 || game.difficulty == 3
+            : filter?.easy
+            ? game.difficulty === 1
+            : filter?.medium
+            ? game.difficulty === 2
+            : filter?.hard
+            ? game.difficulty === 3
+            : game
+        )
+        .filter((game: Game) =>
+          filter?.classic && filter?.party && filter?.strategy
+            ? game
+            : filter?.classic && filter?.party
+            ? game.type == 1 || game.type == 2
+            : filter?.classic && filter?.strategy
+            ? game.type == 1 || game.type == 3
+            : filter?.party && filter?.strategy
+            ? game.type == 2 || game.type == 3
+            : filter?.classic
+            ? game.type === 1
+            : filter?.party
+            ? game.type === 2
+            : filter?.strategy
+            ? game.type === 3
+            : game
+        ),
+    [search, filter]
+  )
+
+  const paginatedGames = useMemo(() => {
+    return filteredGames.slice(0, (page + 1) * maxItemsPerPage)
+  }, [filteredGames, maxItemsPerPage, page])
+
+  const nextGames = useCallback(() => {
+    setPage(page => page + 1)
+    setHasMore(!(filteredGames.length <= paginatedGames.length))
+  }, [])
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <Header handleSearch={handleSearch} ref={searchRef} search={search} clearSearch={clearSearch} />
 
-        <TransitionGroup className={styles.GamesContainer}>
-          {props.games
-            .filter((game: Game) =>
-              search.length > 0
-                ? game.game.toUpperCase().includes(search.toUpperCase()) ||
-                  game.subdesc.toUpperCase().includes(search.toUpperCase())
-                : game
-            )
-            .filter((game: Game) =>
-              filter?.players ? filter.players <= game.maxPlayers && filter.players >= game.minPlayers : game
-            )
-            .filter((game: Game) => (filter?.time ? filter.time <= game.maxTime && filter.time >= game.minTime : game))
-            .filter((game: Game) =>
-              filter?.easy && filter?.medium && filter?.hard
-                ? game
-                : filter?.easy && filter?.medium
-                ? game.difficulty == 1 || game.difficulty == 2
-                : filter?.easy && filter?.hard
-                ? game.difficulty == 1 || game.difficulty == 3
-                : filter?.medium && filter?.hard
-                ? game.difficulty == 2 || game.difficulty == 3
-                : filter?.easy
-                ? game.difficulty === 1
-                : filter?.medium
-                ? game.difficulty === 2
-                : filter?.hard
-                ? game.difficulty === 3
-                : game
-            )
-            .filter((game: Game) =>
-              filter?.classic && filter?.party && filter?.strategy
-                ? game
-                : filter?.classic && filter?.party
-                ? game.type == 1 || game.type == 2
-                : filter?.classic && filter?.strategy
-                ? game.type == 1 || game.type == 3
-                : filter?.party && filter?.strategy
-                ? game.type == 2 || game.type == 3
-                : filter?.classic
-                ? game.type === 1
-                : filter?.party
-                ? game.type === 2
-                : filter?.strategy
-                ? game.type === 3
-                : game
-            )
-            .map((game: Game, index) => (
-              <CSSTransition in={appear} appear={true} timeout={500} key={index}>
-                <GameCard jogo={game} />
-              </CSSTransition>
+        <div>
+          <InfiniteScroll
+            className={styles.GamesContainer}
+            dataLength={paginatedGames.length}
+            next={nextGames}
+            hasMore={hasMore}
+            loader={<div className={styles.spinner}></div>}
+          >
+            {paginatedGames.map((game: Game, index) => (
+              <GameCard jogo={game} key={index} />
             ))}
-        </TransitionGroup>
+            {paginatedGames.length === 0 && (
+              <p className={styles.noGamesFound}>Não encontramos nenhum jogo com sua busca 😔</p>
+            )}
+          </InfiniteScroll>
+        </div>
 
         <div className={styles.filterButtonContainer}>
           <Fab size="medium" color="primary" onClick={openFilter} aria-label="filter-button">
