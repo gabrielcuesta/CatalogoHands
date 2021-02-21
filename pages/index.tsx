@@ -10,6 +10,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchIcon from '@material-ui/icons/Search'
 import Filters from '../components/Filters'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { slugify } from '../utils/functions'
 
 const mobileItemsPerPage = 5
 const desktopItemsPerPage = 15
@@ -59,7 +60,7 @@ export default function Home({
     if (window.innerWidth <= 380) setShowSearchFab(true)
   }
 
-  const filteredGames = useMemo(
+  const oldFilteredGames = useMemo(
     () =>
       props.games
         .filter((game: Game) =>
@@ -109,7 +110,57 @@ export default function Home({
     [search, filter]
   )
 
+  const isFiltered = () =>
+    filter?.players ||
+    filter?.time ||
+    filter?.classic ||
+    filter?.party ||
+    filter?.strategy ||
+    filter?.easy ||
+    filter?.medium ||
+    filter?.hard
+
+  const filteredGames = useMemo(
+    () =>
+      props.games.filter((game: Game) => {
+        return search.length > 0 &&
+          (game.game
+            .toUpperCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .includes(
+              search
+                .toUpperCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+            ) ||
+            game.subdesc
+              .toUpperCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .includes(
+                search
+                  .toUpperCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+              )) &&
+          isFiltered()
+          ? (filter?.players && filter.players <= game.maxPlayers && filter.players >= game.minPlayers) ||
+              (filter?.time && filter.time <= game.maxTime && filter.time >= game.minTime) ||
+              (filter?.easy && filter?.medium && filter?.hard) ||
+              (filter?.easy && filter?.medium && (game.difficulty == 1 || game.difficulty == 2)) ||
+              (filter?.easy && filter?.hard && (game.difficulty == 1 || game.difficulty == 3)) ||
+              (filter?.medium && filter?.hard && (game.difficulty == 2 || game.difficulty == 3)) ||
+              (filter?.easy && game.difficulty === 1) ||
+              (filter?.medium && game.difficulty === 2) ||
+              (filter?.hard && game.difficulty === 3)
+          : true
+      }),
+    [search, filter]
+  )
+
   const paginatedGames = useMemo(() => {
+    console.log(oldFilteredGames)
     return filteredGames.slice(0, (page + 1) * maxItemsPerPage)
   }, [filteredGames, maxItemsPerPage, page])
 
