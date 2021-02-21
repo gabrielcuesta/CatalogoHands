@@ -60,56 +60,6 @@ export default function Home({
     if (window.innerWidth <= 380) setShowSearchFab(true)
   }
 
-  const oldFilteredGames = useMemo(
-    () =>
-      props.games
-        .filter((game: Game) =>
-          search.length > 0
-            ? game.game.toUpperCase().includes(search.toUpperCase()) ||
-              game.subdesc.toUpperCase().includes(search.toUpperCase())
-            : game
-        )
-        .filter((game: Game) =>
-          filter?.players ? filter.players <= game.maxPlayers && filter.players >= game.minPlayers : game
-        )
-        .filter((game: Game) => (filter?.time ? filter.time <= game.maxTime && filter.time >= game.minTime : game))
-        .filter((game: Game) =>
-          filter?.easy && filter?.medium && filter?.hard
-            ? game
-            : filter?.easy && filter?.medium
-            ? game.difficulty == 1 || game.difficulty == 2
-            : filter?.easy && filter?.hard
-            ? game.difficulty == 1 || game.difficulty == 3
-            : filter?.medium && filter?.hard
-            ? game.difficulty == 2 || game.difficulty == 3
-            : filter?.easy
-            ? game.difficulty === 1
-            : filter?.medium
-            ? game.difficulty === 2
-            : filter?.hard
-            ? game.difficulty === 3
-            : game
-        )
-        .filter((game: Game) =>
-          filter?.classic && filter?.party && filter?.strategy
-            ? game
-            : filter?.classic && filter?.party
-            ? game.type == 1 || game.type == 2
-            : filter?.classic && filter?.strategy
-            ? game.type == 1 || game.type == 3
-            : filter?.party && filter?.strategy
-            ? game.type == 2 || game.type == 3
-            : filter?.classic
-            ? game.type === 1
-            : filter?.party
-            ? game.type === 2
-            : filter?.strategy
-            ? game.type === 3
-            : game
-        ),
-    [search, filter]
-  )
-
   const isFiltered = () =>
     filter?.players ||
     filter?.time ||
@@ -118,13 +68,13 @@ export default function Home({
     filter?.strategy ||
     filter?.easy ||
     filter?.medium ||
-    filter?.hard
+    filter?.hard ||
+    search.length > 0
 
-  const filteredGames = useMemo(
-    () =>
-      props.games.filter((game: Game) => {
-        return search.length > 0 &&
-          (game.game
+  const filterGame = (game: Game) => {
+    const isSearched =
+      search.length > 0
+        ? game.game
             .toUpperCase()
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
@@ -134,35 +84,67 @@ export default function Home({
                 .normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '')
             ) ||
-            game.subdesc
-              .toUpperCase()
-              .normalize('NFD')
-              .replace(/[\u0300-\u036f]/g, '')
-              .includes(
-                search
-                  .toUpperCase()
-                  .normalize('NFD')
-                  .replace(/[\u0300-\u036f]/g, '')
-              )) &&
-          isFiltered()
-          ? (filter?.players && filter.players <= game.maxPlayers && filter.players >= game.minPlayers) ||
-              (filter?.time && filter.time <= game.maxTime && filter.time >= game.minTime) ||
-              (filter?.easy && filter?.medium && filter?.hard) ||
-              (filter?.easy && filter?.medium && (game.difficulty == 1 || game.difficulty == 2)) ||
-              (filter?.easy && filter?.hard && (game.difficulty == 1 || game.difficulty == 3)) ||
-              (filter?.medium && filter?.hard && (game.difficulty == 2 || game.difficulty == 3)) ||
-              (filter?.easy && game.difficulty === 1) ||
-              (filter?.medium && game.difficulty === 2) ||
-              (filter?.hard && game.difficulty === 3)
-          : true
-      }),
+          game.subdesc
+            .toUpperCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .includes(
+              search
+                .toUpperCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+            )
+        : true
+
+    const havePlayers = filter?.players ? filter.players <= game.maxPlayers && filter.players >= game.minPlayers : true
+
+    const haveTime = filter?.time ? filter.time <= game.maxTime && filter.time >= game.minTime : true
+
+    const difficultySelected =
+      filter?.easy && filter?.medium && filter?.hard
+        ? true
+        : filter?.easy && filter?.medium
+        ? game.difficulty == 1 || game.difficulty == 2
+        : filter?.easy && filter?.hard
+        ? game.difficulty == 1 || game.difficulty == 3
+        : filter?.medium && filter?.hard
+        ? game.difficulty == 2 || game.difficulty == 3
+        : filter?.easy
+        ? game.difficulty === 1
+        : filter?.medium
+        ? game.difficulty === 2
+        : filter?.hard
+        ? game.difficulty === 3
+        : true
+
+    const typeSelected =
+      filter?.classic && filter?.party && filter?.strategy
+        ? true
+        : filter?.classic && filter?.party
+        ? game.type == 1 || game.type == 2
+        : filter?.classic && filter?.strategy
+        ? game.type == 1 || game.type == 3
+        : filter?.party && filter?.strategy
+        ? game.type == 2 || game.type == 3
+        : filter?.classic
+        ? game.type === 1
+        : filter?.party
+        ? game.type === 2
+        : filter?.strategy
+        ? game.type === 3
+        : true
+
+    return isSearched && havePlayers && haveTime && difficultySelected && typeSelected
+  }
+
+  const filteredGames = useMemo(
+    () => (isFiltered() ? props.games.filter((game: Game) => filterGame(game)) : props.games),
     [search, filter]
   )
 
   const paginatedGames = useMemo(() => {
-    console.log(oldFilteredGames)
     return filteredGames.slice(0, (page + 1) * maxItemsPerPage)
-  }, [filteredGames, maxItemsPerPage, page])
+  }, [filteredGames, maxItemsPerPage, page, filter, search])
 
   const nextGames = useCallback(() => {
     setPage(page => page + 1)
