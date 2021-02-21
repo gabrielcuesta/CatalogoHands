@@ -10,7 +10,6 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchIcon from '@material-ui/icons/Search'
 import Filters from '../components/Filters'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { slugify } from '../utils/functions'
 
 const mobileItemsPerPage = 5
 const desktopItemsPerPage = 15
